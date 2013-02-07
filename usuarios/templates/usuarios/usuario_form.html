@@ -1,0 +1,10 @@
+<form method="post">
+	{% csrf_token %}
+	{% if object %}
+    <legend>Editar {{ object.nombre }} {{ object.apellido_paterno }}</legend>
+	{% else %}
+    <legend>Nuevo Personal</legend>
+	{% endif %}
+	{{ form.as_ul }}
+	<input type="submit" value="Guardar">
+</form>
