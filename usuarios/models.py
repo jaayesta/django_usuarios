@@ -4,29 +4,21 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, email, country, city, comuna, address, cellphone, birthdate, profile_picture, coordinates, password=None):
+    def create_user(self, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=UsuarioManager.normalize_email(email),
-            country=country, city=city, comuna=comuna, address=address,
-            cellphone=cellphone, birthdate=birthdate,
-            profile_picture=profile_picture, coordinates=coordinates,
         )
-        #print password
         user.set_password(password)
         user.save(using=self._db)
-        print user.password
         return user
 
-    def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, profile_picture, coordinates, password):
+    def create_superuser(self, email, password):
         user = self.create_user(
             email,
             password=password,
-            country=country, city=city, comuna=comuna, address=address,
-            cellphone=cellphone, birthdate=birthdate,
-            profile_picture=profile_picture, coordinates=coordinates,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -53,9 +45,6 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [
-        'country', 'city', 'comuna', 'address', 'cellphone',
-        'birthdate', 'profile_picture', 'coordinates']
 
     def get_full_name(self):
         # For this case we return email. Could also be User.first_name
