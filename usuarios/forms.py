@@ -5,7 +5,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 # from django.contrib.localflavor.cl.forms import CLRutField
 
 
-class UsuarioForm(ModelForm):
+class UsuarioForm(forms.ModelForm):
     # rut = CLRutField()
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
