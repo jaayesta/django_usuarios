@@ -14,7 +14,7 @@ class UsuarioManager(BaseUserManager):
             cellphone=cellphone, birthdate=birthdate,
             profile_picture=profile_picture, coordinates=coordinates,
         )
-        print password
+        #print password
         user.set_password(password)
         user.save(using=self._db)
         print user.password
