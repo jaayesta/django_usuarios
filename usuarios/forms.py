@@ -10,7 +10,7 @@ class UsuarioForm(forms.ModelForm):
 	password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 	class Meta:
 		model = Usuario
-		fields = ('email', 'country', 'city', 'comuna', 'address',)
+		fields = ('email', 'country', 'city', 'comuna', 'address','birthdate', 'cellphone', )
 
 	def clean_password2(self):
 		# Check that the two password entries match

@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, email, country, city, comuna, address, cellphone, birthdate, profile_picture, coordinates, password=None):
+    def create_user(self, email, country, city, comuna, address, cellphone, birthdate, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -12,7 +12,6 @@ class UsuarioManager(BaseUserManager):
             email=UsuarioManager.normalize_email(email),
             country=country, city=city, comuna=comuna, address=address,
             cellphone=cellphone, birthdate=birthdate,
-            profile_picture=profile_picture, coordinates=coordinates,
         )
         #print password
         user.set_password(password)
@@ -20,13 +19,13 @@ class UsuarioManager(BaseUserManager):
         print user.password
         return user
 
-    def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, coordinates, password):
+
+    def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, password):
         user = self.create_user(
             email,
             password=password,
             country=country, city=city, comuna=comuna, address=address,
             cellphone=cellphone, birthdate=birthdate,
-            profile_picture=profile_picture, coordinates=coordinates,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -40,14 +39,14 @@ class Usuario(AbstractBaseUser):
     last_name = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    country = models.CharField(max_length=255, blank=True)
+    country = models.CharField(max_length=255)
     city = models.CharField(max_length=255, blank=True)
     comuna = models.CharField(max_length=255, blank=True)
     address = models.CharField(max_length=255, blank=True)
     cellphone = models.IntegerField(blank=True, null=True)
     profile_picture = models.ImageField(
-        upload_to='pictures', blank=True, null=True)
-    birthdate = models.DateField(blank=True, null=True)
+        upload_to='pictures', blank=True)
+    birthdate = models.DateField(blank=True)
     coordinates = models.CharField(max_length=255, blank=True)
 
     objects = UsuarioManager()
@@ -55,7 +54,7 @@ class Usuario(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [
         'country', 'city', 'comuna', 'address', 'cellphone',
-        'birthdate', 'profile_picture', 'coordinates']
+        'birthdate']
 
     def get_full_name(self):
         # For this case we return email. Could also be User.first_name
