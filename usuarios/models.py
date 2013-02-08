@@ -4,21 +4,27 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UsuarioManager(BaseUserManager):
+<<<<<<< HEAD
     def create_user(self, email, country, city, comuna, address, cellphone, birthdate, password=None):
+=======
+    def create_user(self, email, password=None):
+>>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=UsuarioManager.normalize_email(email),
+<<<<<<< HEAD
             country=country, city=city, comuna=comuna, address=address,
             cellphone=cellphone, birthdate=birthdate,
+=======
+>>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
         )
-        #print password
         user.set_password(password)
         user.save(using=self._db)
-        print user.password
         return user
 
+<<<<<<< HEAD
 
     def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, password):
         user = self.create_user(
@@ -26,6 +32,12 @@ class UsuarioManager(BaseUserManager):
             password=password,
             country=country, city=city, comuna=comuna, address=address,
             cellphone=cellphone, birthdate=birthdate,
+=======
+    def create_superuser(self, email, password):
+        user = self.create_user(
+            email,
+            password=password,
+>>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -52,9 +64,12 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
+<<<<<<< HEAD
     REQUIRED_FIELDS = [
         'country', 'city', 'comuna', 'address', 'cellphone',
         'birthdate']
+=======
+>>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
 
     def get_full_name(self):
         # For this case we return email. Could also be User.first_name
