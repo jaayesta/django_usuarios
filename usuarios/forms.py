@@ -4,7 +4,6 @@ from usuarios.models import Usuario
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 # from django.contrib.localflavor.cl.forms import CLRutField
 
-
 class UsuarioForm(forms.ModelForm):
     # rut = CLRutField()
 	password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -12,6 +11,7 @@ class UsuarioForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
+		fields = ('email', 'country', 'city', 'comuna', 'address',)
 
 	def clean_password2(self):
 		# Check that the two password entries match
@@ -27,7 +27,7 @@ class UsuarioForm(forms.ModelForm):
 		user.set_password(self.cleaned_data["password1"])
 		if commit:
 			user.save()
-			return user
+		return user
 			
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
@@ -38,8 +38,8 @@ class UserChangeForm(forms.ModelForm):
 	
 	class Meta:
 		model = Usuario
-		def clean_password(self):
-			# Regardless of what the user provides, return the initial value.
-			# This is done here, rather than on the field, because the
-			# field does not have access to the initial value
-			return self.initial["password"]			
+	def clean_password(self):
+		# Regardless of what the user provides, return the initial value.
+		# This is done here, rather than on the field, because the
+		# field does not have access to the initial value
+		return self.initial["password"]			

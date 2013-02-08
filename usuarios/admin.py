@@ -8,18 +8,17 @@ from usuarios.models import Usuario
 class MyUserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UsuarioForm
-	list_display = ('email', 'firs_name', 'last_name', 'is_admin', 'country', 'city', 'comuna', 'address', '')
+	list_display = ('email', 'first_name', 'last_name', 'is_admin', 'country', 'city', 'comuna', 'address', '')
 	    list_filter = ('is_admin',)
 	    fieldsets = (
 	        (None, {'fields': ('email', 'password')}),
-	        ('Personal info', {'fields': ('date_of_birth',)}),
+	        ('Personal info', {'fields': ('first_name', 'last_name', 'country', 'city', 'comuna', 'address', '')}),
 	        ('Permissions', {'fields': ('is_admin',)}),
-	        ('Important dates', {'fields': ('last_login',)}),
 	    )
 	    add_fieldsets = (
 	        (None, {
 	            'classes': ('wide',),
-	            'fields': ('email', 'date_of_birth', 'password1', 'password2')}
+	            'fields': ('email', 'country', 'city', 'comuna', 'address', 'password1', 'password2')}
 	        ),
 	    )
     search_fields = ('email',)
