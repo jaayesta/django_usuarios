@@ -5,24 +5,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from usuarios.models import Usuario
 
-username = models.CharField(max_length=255, unique=True, db_index=True)
-email = models.EmailField(max_length=255, unique=True)
-first_name = models.CharField(max_length=255, blank=True)
-last_name = models.CharField(max_length=255, blank=True)
-is_active = models.BooleanField(default=True)
-is_admin = models.BooleanField(default=False)
-country = models.CharField(max_length=255, blank=True)
-city = models.CharField(max_length=255, blank=True)
-comuna = models.CharField(max_length=255, blank=True)
-address = models.CharField(max_length=255, blank=True)
-cellphone = models.IntegerField(blank=True, null=True)
-profile_picture = models.ImageField(
-    upload_to='pictures', blank=True, null=True)
-birthdate = models.DateField(blank=True, null=True)
-coordinates = models.CharField(max_length=255, blank=True)
-
-
-
 class MyUserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UsuarioForm
