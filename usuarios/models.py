@@ -20,7 +20,7 @@ class UsuarioManager(BaseUserManager):
         print user.password
         return user
 
-    def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, profile_picture, coordinates, password):
+    def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, coordinates, password):
         user = self.create_user(
             email,
             password=password,
@@ -34,7 +34,7 @@ class UsuarioManager(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser):
-    username = models.CharField(max_length=255, unique=True, db_index=True)
+    #username = models.CharField(max_length=255, unique=True, db_index=True)
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
