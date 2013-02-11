@@ -1,0 +1,11 @@
+<h1>Usuarios</h1>
+
+{% if object_list %}
+	<ul>
+	{% for object in object_list %}
+		<li><a href="">{{ object.email }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	No existen Usuarios
+{% endif %}

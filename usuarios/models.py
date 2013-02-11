@@ -4,41 +4,28 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UsuarioManager(BaseUserManager):
-<<<<<<< HEAD
-    def create_user(self, email, country, city, comuna, address, cellphone, birthdate, password=None):
-=======
-    def create_user(self, email, password=None):
->>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
+    def create_user(
+            self, email, country, city, comuna, address, cellphone,
+            birthdate, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=UsuarioManager.normalize_email(email),
-<<<<<<< HEAD
             country=country, city=city, comuna=comuna, address=address,
-            cellphone=cellphone, birthdate=birthdate,
-=======
->>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
-        )
+            cellphone=cellphone, birthdate=birthdate,)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-<<<<<<< HEAD
-
-    def create_superuser(self, email, country, city, comuna, address, cellphone, birthdate, password):
+    def create_superuser(
+            self, email, country, city, comuna, address, cellphone,
+            birthdate, password):
         user = self.create_user(
             email,
             password=password,
             country=country, city=city, comuna=comuna, address=address,
-            cellphone=cellphone, birthdate=birthdate,
-=======
-    def create_superuser(self, email, password):
-        user = self.create_user(
-            email,
-            password=password,
->>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
-        )
+            cellphone=cellphone, birthdate=birthdate,)
         user.is_admin = True
         user.save(using=self._db)
         return user
@@ -57,19 +44,16 @@ class Usuario(AbstractBaseUser):
     address = models.CharField(max_length=255, blank=True)
     cellphone = models.IntegerField(blank=True, null=True)
     profile_picture = models.ImageField(
-        upload_to='pictures', blank=True)
-    birthdate = models.DateField(blank=True)
+        upload_to='pictures', blank=True, null=True)
+    birthdate = models.DateField(blank=True, null=True)
     coordinates = models.CharField(max_length=255, blank=True)
 
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
-<<<<<<< HEAD
+
     REQUIRED_FIELDS = [
-        'country', 'city', 'comuna', 'address', 'cellphone',
-        'birthdate']
-=======
->>>>>>> 3645e488e5a3956507edb6c0307166ed2729e013
+        'country', 'city', 'comuna', 'address', 'cellphone', 'birthdate']
 
     def get_full_name(self):
         # For this case we return email. Could also be User.first_name
